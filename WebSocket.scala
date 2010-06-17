@@ -121,6 +121,12 @@ trait WebSocket{
     out.flush
   }
 
+  def close() = {
+    out.write(0)
+    out.write(0xff)
+    out.flush
+  }
+
   protected def dump(buf:Array[Byte])= {
     buf.foreach { c => print(Integer.toHexString(c&0xff)+":") }
     println("")
