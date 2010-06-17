@@ -53,13 +53,13 @@ class WebSocketClient(uri: URI)
   }
 
   val host = {
-    uri.getHost + (port match{
+    uri.getHost.toLowerCase + (port match{
       case `default_port` => ""
       case p => ":"+p
     })
   }
 
-  val origin = "http://"+uri.getHost
+  val origin = "http://"+uri.getHost.toLowerCase
 
   def connect(): Boolean = { 
     val s = {
