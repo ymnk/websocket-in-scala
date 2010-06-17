@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <title>WebSocket Echo</title>
+</head>
+<body>
+  <h1>WebSocket Echo</h1>
+  <section id="content"></section>
+
+  <input id="message" type="text" />
+  <script src="http://www.google.com/jsapi"></script>
+  <script>google.load("jquery", "1.3")</script>
+  <script>
+    var host = window.location.host;
+    host = "localhost:8080";
+    var ws = new WebSocket("ws://"+host+"/");
+    ws.onmessage = function(m) {
+      $('#content').append(m.data + '<br>');
+    };
+    $('#message').change(function(){
+      ws.send(this.value);
+      this.value = '';
+    });
+    $(window).unload(function(){
+      ws.close();
+    });
+  </script>
+</body>
